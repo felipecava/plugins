@@ -1,6 +1,14 @@
-1. Chamada
-1.1 Chamada Padrão
-	nomeie o id da imagem para 
-	id="zoom"
-	no javascript chame a função
-	zoom();
+Propriedades
+
+1. zoom();
+chamada da função
+
+2. typeZoom
+tipo de zoom que deseja chamar, por enquanto só o tipo 'referency';
+
+2.1 referency
+exemplo:
+	zoom({
+		typeZoom: 'referency'
+	});
+ 
