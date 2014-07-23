@@ -36,7 +36,7 @@ var widthImgContent;
 var heightImgContent;
 var boxWImgzoom = 0;
 var boxHImgzoom = 0;
-var heightBoxDrag;
+var heightBoxDrag = 0;
 var zoom_limiteW = 0;
 var zoom_limiteH = 0;
 var parametrosZoom;
@@ -70,10 +70,13 @@ function zoom(dadosZoom){
   zoom_larguradiv = $(zoom_boxZoom).width();
   zoom_alturadiv = $(zoom_boxZoom).height();
   
-  heightBoxDrag = parametrosZoom.heightBoxDrag;
+  if(parametrosZoom.heightBoxDrag != undefined){
+    heightBoxDrag = parametrosZoom.heightBoxDrag;
+  }
+  
 
   //Carregamento da Imagem para Iniciar o Script
-  carregamentoImagens()
+  carregamentoImagens();
   
 }
 
@@ -251,13 +254,14 @@ function dimensaoreferencia(){
     widthImgContent = zoom_larguradiv;
     heightImgContent = (zoom_larguradiv*zoom_alturaImg)/zoom_larguraImg;
     wImgzoom = (wReferency-10);
-    hImgzoom = (((wReferency*zoom_alturaImg)/zoom_larguraImg)-8);
+    hImgzoom = (((wReferency*zoom_alturaImg)/zoom_larguraImg)-10);
     zoom_larguraLimit = wReferency;
     zoom_alturaLimit = (wReferency*zoom_alturadiv)/zoom_larguradiv;
   }
 
   widthZoomReferency = widthContentZoom;
   heightZoomReferency = heightContentZoom + heightBoxDrag;
+  console.log(heightBoxDrag);
 }
   
 var zoom_larguraLimit = 0;
@@ -305,7 +309,6 @@ function referenciaZoom(){
       hReferency = parametrosZoom.heighReferency;
     }
   }
-  
   widthImgContent = '100%';
   heightImgContent = '100%';
     
@@ -317,9 +320,9 @@ function referenciaZoom(){
   dimensaoreferencia();
 
   wBoxLayer = widthContentZoom-10;
-  hBoxLayer = heightContentZoom-7;
-  boxWImgzoom = widthContentZoom-8;
-  boxHImgzoom = heightContentZoom-6;
+  hBoxLayer = heightContentZoom-10;
+  boxWImgzoom = widthContentZoom-10;
+  boxHImgzoom = heightContentZoom-11;
   boxTImgZoom = -1;
   boxLImgZoom = -1;
   TImgZoom = 0;
@@ -351,8 +354,8 @@ function referenciaZoom(){
   }
 
 
-  var htmlZoom = '<div class="zoomReferency" style="width:'+widthZoomReferency+'px;height:'+heightZoomReferency+'px;'+referencyTop+referencyRight+referencyBottom+referencyLeft+'padding: 5px;background: #fff;position: absolute;display: block;">'
-          + '<div class="contentZoom" style="width:'+(widthContentZoom-10)+'px;height:'+(heightContentZoom-8)+'px;position: relative;display: block;">'
+  var htmlZoom = '<div class="zoomReferency" style="width:'+(widthZoomReferency-10)+'px;height:'+(heightZoomReferency-10)+'px;'+referencyTop+referencyRight+referencyBottom+referencyLeft+'padding: 5px;background: #fff;position: absolute;display: block;">'
+          + '<div class="contentZoom" style="width:'+(widthContentZoom-10)+'px;height:'+(heightContentZoom-10)+'px;position: relative;display: block;">'
           + '<div class="mouseReferency" style="position:relative;">'
             + '<div style="position:relative;width:'+wBoxLayer+'px;height:'+hBoxLayer+'px;display:block;">'
               + '<img src="'+zoom_urlImgContent+'" style="width:'+wBoxLayer+'px;height:'+hBoxLayer+'px;" />'
@@ -459,7 +462,7 @@ function referenciaZoom(){
         if(tempH2 != boxHImgzoom){
           if(zoom_alturaImgTemp > zoom_alturadiv){
             if(zoom_posY < -2){
-              $('.contentImgZoom').css({'top':0})
+              $('.contentImgZoom').css({'top':-1})
               $('.contentImgZoom img').css({'top':-1})
 
               zoom_topImg = 0;
@@ -647,7 +650,7 @@ function buttonDragReferency(){
       var leftBox = (boxWImgzoom - tempW2)/2
       var topBox = (boxHImgzoom - tempH2)/2
       if(tempW2 > boxWImgzoom){leftBox = 0}
-      if(tempH2 > boxHImgzoom){topBox = 0}
+      if(tempH2 > boxHImgzoom){topBox = -1}
       $('.contentImgZoom').css({'top':topBox, 'left':(leftBox-2)});
       $('.contentImgZoom img').css({'top':-topBox,'left':-leftBox});
       zoom_topImg = (zoom_alturadiv-zoom_alturaImgTemp)/2;
@@ -758,28 +761,33 @@ var zoom_numTempW = 0;
 var flagAltura = true;
 var flagLargura = true;
 function zoomUpImg(){
-  $(zoom_imgClass).draggable('enable')
+  console.log(parametrosZoom.imageDrag);
+
   var tempW4 = zoom_larguraImgInicial + zoom_num*zoom_numImgW;
   var tempH4 = zoom_alturaImgInicial + zoom_num*zoom_numImgH;
 
-  if(type == 2){
-    if(zoom_alturaImgTemp > zoom_alturadiv){
-      $(zoom_imgClass).draggable({ axis: false});
-      tempH2 = (zoom_alturadiv*boxHImgzoom)/tempH4;
-    }else{
-      $(zoom_imgClass).draggable({ axis: "x"});
-      tempH2 = boxHImgzoom;
-    }
-    tempW2 = ((zoom_larguradiv*boxWImgzoom)/tempW4)-2;
-  }else if(type == 3){
-    if(zoom_larguraImgTemp > zoom_larguradiv){
-      $(zoom_imgClass).draggable({ axis: false});
+  if(parametrosZoom.imageDrag == true){ 
+    $(zoom_imgClass).draggable('enable');
+
+    if(type == 2){
+      if(zoom_alturaImgTemp > zoom_alturadiv){
+        $(zoom_imgClass).draggable({ axis: false});
+        tempH2 = (zoom_alturadiv*boxHImgzoom)/tempH4;
+      }else{
+        $(zoom_imgClass).draggable({ axis: "x"});
+        tempH2 = boxHImgzoom;
+      }
       tempW2 = ((zoom_larguradiv*boxWImgzoom)/tempW4)-2;
-    }else{
-      $(zoom_imgClass).draggable({ axis: "y"});
-      tempW2 = boxWImgzoom;
+    }else if(type == 3){
+      if(zoom_larguraImgTemp > zoom_larguradiv){
+        $(zoom_imgClass).draggable({ axis: false});
+        tempW2 = ((zoom_larguradiv*boxWImgzoom)/tempW4)-2;
+      }else{
+        $(zoom_imgClass).draggable({ axis: "y"});
+        tempW2 = boxWImgzoom;
+      }
+      tempH2 = (zoom_alturadiv*boxHImgzoom)/tempH4;
     }
-    tempH2 = (zoom_alturadiv*boxHImgzoom)/tempH4;
   }
   
   zoom_larguraImgTemp = tempW4;
@@ -794,27 +802,29 @@ function zoomDownImg(){
   var tempW4 = zoom_larguraImgInicial + zoom_num*zoom_numImgW;
   var tempH4 = zoom_alturaImgInicial + zoom_num*zoom_numImgH;
 
-  if(type == 2){
-    if(zoom_alturaImgTemp > zoom_alturadiv){
-      $(zoom_imgClass).draggable({ axis: false});
-      tempH2 = (zoom_alturadiv*boxHImgzoom)/tempH4;
-    }else{
-      $(zoom_imgClass).draggable({ axis: "x"});
-      tempH2 = boxHImgzoom;
-    }
-    tempW2 = ((zoom_larguradiv*boxWImgzoom)/tempW4);
-  }else if(type == 3){
-    if(zoom_larguraImgTemp > zoom_larguradiv){
-      $(zoom_imgClass).draggable({ axis: false});
+  if(parametrosZoom.imageDrag == true){ 
+    if(type == 2){
+      if(zoom_alturaImgTemp > zoom_alturadiv){
+        $(zoom_imgClass).draggable({ axis: false});
+        tempH2 = (zoom_alturadiv*boxHImgzoom)/tempH4;
+      }else{
+        $(zoom_imgClass).draggable({ axis: "x"});
+        tempH2 = boxHImgzoom;
+      }
       tempW2 = ((zoom_larguradiv*boxWImgzoom)/tempW4);
-    }else{
-      $(zoom_imgClass).draggable({ axis: "y"});
-      tempW2 = boxWImgzoom;
+    }else if(type == 3){
+      if(zoom_larguraImgTemp > zoom_larguradiv){
+        $(zoom_imgClass).draggable({ axis: false});
+        tempW2 = ((zoom_larguradiv*boxWImgzoom)/tempW4);
+      }else{
+        $(zoom_imgClass).draggable({ axis: "y"});
+        tempW2 = boxWImgzoom;
+      }
+      tempH2 = (zoom_alturadiv*boxHImgzoom)/tempH4;
     }
-    tempH2 = (zoom_alturadiv*boxHImgzoom)/tempH4;
-  }
-  if(zoom_num == 0){
-    $(zoom_imgClass).draggable('disable')
+    if(zoom_num == 0){
+      $(zoom_imgClass).draggable('disable')
+    }
   }
   
   zoom_larguraImgTemp = tempW4;
@@ -856,7 +866,7 @@ function zoomPosition(){
 
   if(zoom_alturaImgTemp > zoom_alturadiv){
     if(zoom_posY < -2){
-      $('.contentImgZoom').css({'top':0})
+      $('.contentImgZoom').css({'top':-1})
       $('.contentImgZoom img').css({'top':-1})
 
       zoom_topImg = 1;
@@ -875,7 +885,7 @@ function zoomPosition(){
        $(zoom_imgClass).css({'top': -zoom_topImg})
     }
   }else{
-    $('.contentImgZoom').css({'top':0})
+    $('.contentImgZoom').css({'top':-1})
     $('.contentImgZoom img').css({'top':-1})
     zoom_topImg = (zoom_alturadiv-zoom_alturaImgTemp)/2;
     $(zoom_imgClass).css({'top': zoom_topImg});
@@ -886,8 +896,8 @@ function responsiveZoom(){
   dimensaoImg();
   if(parametrosZoom.typeZoom == 'referency'){
 
-    boxWImgzoom = widthContentZoom-8;
-    boxHImgzoom = heightContentZoom-6;
+    boxWImgzoom = widthContentZoom-10;
+    boxHImgzoom = heightContentZoom-10;
     boxTImgZoom = -1;
     boxLImgZoom = -1;
     TImgZoom = 0;

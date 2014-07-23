@@ -1,0 +1,6 @@
+1. Chamada
+1.1 Chamada Padrão
+	nomeie o id da imagem para 
+	id="zoom"
+	no javascript chame a função
+	zoom();
