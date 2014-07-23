@@ -1,0 +1,45 @@
+<html>
+<head>
+	<title>Zoom</title>
+	<link rel="stylesheet" href="css/reset.css" type="text/css" media="screen"/>
+	<link rel="stylesheet" href="css/zoom.css" type="text/css" media="screen"/>
+	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui.custom.min.js"></script>
+	<script type="text/javascript" src='js/zoom.js'></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			zoom({
+		        //img : dataImg,
+		        // widthImg : dataFullLargura,
+		        // heightImg : dataFullAltura,
+		        imgid: 'zoom',
+		        responsive: true,
+		        typeZoom: 'referency',
+		        dimensionReferency: 120,
+		        buttonDrag: true,
+		        imageDrag: true,
+		        heightBoxDrag: 30,
+		        referencyPosition: {
+		            top: '50px',
+		            right: '50px'
+		        },
+		        //callbackZoom: true,
+		        MaxZoom : 50,
+		        imageZoom : true
+		    });
+
+		    // changeZoom({
+		    //     img : dataImg,
+		    //     widthImg : dataFullLargura,
+		    //     heightImg : dataFullAltura      
+		    // })
+		});
+		
+	</script>
+</head>
+<body>
+	<div id="imagemDestacada">
+		<img src="img/dany.jpg"  id="zoom" /> 
+	</div>
+</body>
+</html>
