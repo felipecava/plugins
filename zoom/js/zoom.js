@@ -788,7 +788,25 @@ function zoomUpImg(){
       }
       tempH2 = (zoom_alturadiv*boxHImgzoom)/tempH4;
     }
+  }else{
+    if(type == 2){
+      if(zoom_alturaImgTemp > zoom_alturadiv){
+        tempH2 = (zoom_alturadiv*boxHImgzoom)/tempH4;
+      }else{
+        tempH2 = boxHImgzoom;
+      }
+      tempW2 = ((zoom_larguradiv*boxWImgzoom)/tempW4)-2;
+    }else if(type == 3){
+      if(zoom_larguraImgTemp > zoom_larguradiv){
+        tempW2 = ((zoom_larguradiv*boxWImgzoom)/tempW4)-2;
+      }else{
+        tempW2 = boxWImgzoom;
+      }
+      tempH2 = (zoom_alturadiv*boxHImgzoom)/tempH4;
+    }
   }
+
+  
   
   zoom_larguraImgTemp = tempW4;
   zoom_alturaImgTemp =  tempH4;
@@ -824,6 +842,22 @@ function zoomDownImg(){
     }
     if(zoom_num == 0){
       $(zoom_imgClass).draggable('disable')
+    }
+  }else{
+    if(type == 2){
+      if(zoom_alturaImgTemp > zoom_alturadiv){
+        tempH2 = (zoom_alturadiv*boxHImgzoom)/tempH4;
+      }else{
+        tempH2 = boxHImgzoom;
+      }
+      tempW2 = ((zoom_larguradiv*boxWImgzoom)/tempW4);
+    }else if(type == 3){
+      if(zoom_larguraImgTemp > zoom_larguradiv){
+        tempW2 = ((zoom_larguradiv*boxWImgzoom)/tempW4);
+      }else{
+        tempW2 = boxWImgzoom;
+      }
+      tempH2 = (zoom_alturadiv*boxHImgzoom)/tempH4;
     }
   }
   
