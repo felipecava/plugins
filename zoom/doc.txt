@@ -4,11 +4,46 @@ Propriedades
 chamada da função
 
 2. typeZoom
-tipo de zoom que deseja chamar, por enquanto só o tipo 'referency';
+Tipo de zoom que deseja chamar, por enquanto só o tipo 'referency';
 
 2.1 referency
-exemplo:
-	zoom({
-		typeZoom: 'referency'
-	});
+O "referency" é o tipo de zoom que cria uma versão miniatura do zoom, onde vc manipula tamanho e posição dele.
+Ele tem alguns parâmetros especificos e necessários que são:
+
+	exemplo:
+		zoom({
+			typeZoom: 'referency'
+		});
+
+2.1.1 Para largura e altura da versão miniatura.
+widthReferency, heighReferency, dimensionReferency,
+Eles são parâmetros numericos, onde vc determina o máximo de altura e/ou largura da versão miniatura.
+	exemplo:
+		zoom({
+			widthReferency: 200,
+		    heighReferency: 150.4,
+		    dimensionReferency: 120,
+		});
+
+Obs: widthReferency e heighReferency trabalham juntos, já o dimensionReferency serve para ambos podendo ficar sozinho, caso os tres sejam colocados o dimension é o que vale. 
+
+2.1.2 Para posição da versão miniatura
+A posição miniatura é referente a posição da imagem que sofre ação do zoom.
+referencyPosition é um parametros que recebe outros parametros como top, left, bottom, right, os valores destes recebe uma string com o valor e a metrica dele, ex: '10px', '20%', '100em'
+	exemplo:
+		zoom({
+		    referencyPosition: {
+		        top: '50px',
+		        left: '50px',
+		        bottom: '50px',
+		        right: '50px'
+		    },
+		});
+
+Obs: Ele Obedece a ordem padrão do css, top e left, caso todos sejam preenchidos.
+
+
+
+
+
  

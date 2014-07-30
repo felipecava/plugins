@@ -299,9 +299,9 @@ function referenciaZoom(){
   dReferency = parseInt(parametrosZoom.dimensionReferency);
   wReferency = parseInt(dReferency);
   hReferency = parseInt(dReferency);
-  if(dReferency == undefined){
-      
-    if(dReferency == undefined && dReferency == undefined){
+  
+  if(isNaN(dReferency)){
+    if(isNaN(parametrosZoom.widthReferency) || isNaN(parametrosZoom.heighReferency)){
       wReferency = 100;
       hReferency = 100;
     }else{
@@ -761,7 +761,6 @@ var zoom_numTempW = 0;
 var flagAltura = true;
 var flagLargura = true;
 function zoomUpImg(){
-  console.log(parametrosZoom.imageDrag);
 
   var tempW4 = zoom_larguraImgInicial + zoom_num*zoom_numImgW;
   var tempH4 = zoom_alturaImgInicial + zoom_num*zoom_numImgH;
